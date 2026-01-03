@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueChat Help Center</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="bluechat.jpg" type="image/jpeg">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bluechat: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Animation for search results */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload()">
+                    <!-- Using the uploaded file name for the logo -->
+                    <img src="bluechat.jpg" alt="BlueChat Logo" class="h-10 w-10 rounded-full object-cover shadow-sm bg-blue-100">
+                    <span class="text-2xl font-bold text-bluechat-700 tracking-tight">BlueChat</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="text-slate-600 hover:text-bluechat-600 font-medium transition-colors">Home</a>
+                    <a href="#features" class="text-slate-600 hover:text-bluechat-600 font-medium transition-colors">Features</a>
+                    <a href="#faq" class="text-slate-600 hover:text-bluechat-600 font-medium transition-colors">FAQ</a>
+                    <a href="https://github.com/Arnav-Dugad/BlueChat/releases" target="_blank" class="bg-bluechat-600 text-white px-5 py-2 rounded-full font-medium hover:bg-bluechat-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        Download App
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-slate-500 hover:text-bluechat-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 p-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#" class="text-slate-600 font-medium">Home</a>
+                <a href="#features" class="text-slate-600 font-medium">Features</a>
+                <a href="#faq" class="text-slate-600 font-medium">FAQ</a>
+                <a href="https://github.com/Arnav-Dugad/BlueChat/releases" target="_blank" class="text-bluechat-600 font-bold">Download App</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-br from-bluechat-600 to-bluechat-900 text-white pb-32 pt-20">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">How can we help you?</h1>
+            <p class="text-blue-100 text-lg mb-8">Search for answers about BlueChat features, account settings, and more.</p>
+            
+            <!-- Search Bar -->
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-bluechat-500 text-lg"></i>
+                </div>
+                <input type="text" 
+                       id="searchInput" 
+                       placeholder="Describe your issue (e.g., 'reset password', 'dark mode')..." 
+                       class="w-full pl-12 pr-4 py-4 rounded-xl text-slate-900 shadow-xl focus:ring-4 focus:ring-blue-400/50 focus:outline-none text-lg transition-shadow"
+                       onkeyup="filterFAQ()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow -mt-20 relative z-20 px-4 mb-20">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Quick Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-1 group border border-transparent hover:border-blue-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-bluechat-600 transition-colors">
+                        <i class="fas fa-rocket text-bluechat-600 text-xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Getting Started</h3>
+                    <p class="text-slate-500 text-sm">Installation, setup, and your first message.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-1 group border border-transparent hover:border-blue-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-600 transition-colors">
+                        <i class="fas fa-user-shield text-purple-600 text-xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Account & Privacy</h3>
+                    <p class="text-slate-500 text-sm">Profile settings, security, and blocking users.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-1 group border border-transparent hover:border-blue-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-600 transition-colors">
+                        <i class="fas fa-comments text-green-600 text-xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Chat Features</h3>
+                    <p class="text-slate-500 text-sm">Groups, media sharing, and voice notes.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:-translate-y-1 group border border-transparent hover:border-blue-100">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-orange-600 transition-colors">
+                        <i class="fas fa-wrench text-orange-600 text-xl group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Troubleshooting</h3>
+                    <p class="text-slate-500 text-sm">Connection issues, notifications, and bugs.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div id="faq" class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-800 mb-8 text-center">Frequently Asked Questions</h2>
+                
+                <div class="space-y-4" id="faqContainer">
+                    
+                    <!-- Section: Getting Started -->
+                    <div class="faq-category" data-category="start">
+                        <div class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 mt-8 ml-2">Getting Started</div>
+                        
+                        <div class="faq-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden" data-keywords="account create sign up register phone number">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors" onclick="toggleAccordion(this)">
+                                <span class="font-semibold text-slate-700">How do I create a BlueChat account?</span>
+                                <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="hidden px-6 py-4 bg-slate-50 border-t border-slate-100 text-slate-600">
+                                <p>To create an account, simply download the BlueChat app, open it, and enter your mobile phone number. You will receive an SMS with a verification code. Enter the code to verify your number and set up your profile.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden mt-3" data-keywords="contacts add find friends sync">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors" onclick="toggleAccordion(this)">
+                                <span class="font-semibold text-slate-700">How do I find my friends?</span>
+                                <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="hidden px-6 py-4 bg-slate-50 border-t border-slate-100 text-slate-600">
+                                <p>BlueChat syncs with your phone's contact list. If your friends have BlueChat installed, they will automatically appear in your contact list. You can also invite friends via SMS or email through the 'Invite Friends' option in settings.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Privacy -->
+                    <div class="faq-category" data-category="privacy">
+                        <div class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 mt-8 ml-2">Privacy & Security</div>
+                        
+                        <div class="faq-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden" data-keywords="delete account remove data erase">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors" onclick="toggleAccordion(this)">
+                                <span class="font-semibold text-slate-700">How can I delete my account?</span>
+                                <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="hidden px-6 py-4 bg-slate-50 border-t border-slate-100 text-slate-600">
+                                <p>To delete your account, go to <strong>Settings > Account > Delete my account</strong>. Please note that this action is irreversible and will delete your message history and remove you from all BlueChat groups.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden mt-3" data-keywords="block user spam privacy harassment">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors" onclick="toggleAccordion(this)">
+                                <span class="font-semibold text-slate-700">How do I block someone?</span>
+                                <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="hidden px-6 py-4 bg-slate-50 border-t border-slate-100 text-slate-600">
+                                <p>Open the chat with the contact you wish to block, tap their name at the top of the screen to view their profile, scroll down, and select <strong>Block Contact</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Features -->
+                    <div class="faq-category" data-category="features">
+                        <div class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 mt-8 ml-2">Chat Features</div>
+                        
+                        <div class="faq-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden" data-keywords="group chat limit members create group">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors" onclick="toggleAccordion(this)">
+                                <span class="font-semibold text-slate-700">How many people can be in a group chat?</span>
+                                <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="hidden px-6 py-4 bg-slate-50 border-t border-slate-100 text-slate-600">
+                                <p>BlueChat groups currently support up to 512 participants. We are working on increasing this limit in future updates.</p>
+                            </div>
+                        </div>
+
+                         <div class="faq-item bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden mt-3" data-keywords="dark mode theme night appearance">
+                            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors" onclick="toggleAccordion(this)">
+                                <span class="font-semibold text-slate-700">Does BlueChat have Dark Mode?</span>
+                                <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                            </button>
+                            <div class="hidden px-6 py-4 bg-slate-50 border-t border-slate-100 text-slate-600">
+                                <p>Yes! Go to <strong>Settings > Chats > Theme</strong> to switch between Light, Dark, or System Default themes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- No Results Message -->
+                <div id="noResults" class="hidden text-center py-12">
+                    <div class="text-6xl mb-4">🤔</div>
+                    <h3 class="text-xl font-bold text-slate-700 mb-2">No results found</h3>
+                    <p class="text-slate-500">Try adjusting your search terms or browsing the categories above.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Support Banner -->
+    <div class="bg-blue-50 py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold text-bluechat-900 mb-4">Still need help?</h2>
+            <p class="text-slate-600 mb-8">Our support team is just a message away.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="mailto:support@bluechat.com" class="inline-flex items-center justify-center px-6 py-3 bg-white border border-slate-200 rounded-lg text-bluechat-600 font-semibold hover:bg-slate-50 transition-colors shadow-sm">
+                    <i class="fas fa-envelope mr-2"></i> Email Support
+                </a>
+                <a href="#" class="inline-flex items-center justify-center px-6 py-3 bg-bluechat-600 text-white rounded-lg font-semibold hover:bg-bluechat-700 transition-colors shadow-lg">
+                    <i class="fab fa-twitter mr-2"></i> Tweet Us
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                         <img src="bluechat.jpg" alt="BlueChat Logo" class="h-8 w-8 rounded-full">
+                        <span class="text-xl font-bold text-white">BlueChat</span>
+                    </div>
+                    <p class="text-sm text-slate-400">Connecting the world, one message at a time. Secure, fast, and simple.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://github.com/Arnav-Dugad/BlueChat/releases" target="_blank" class="hover:text-white transition-colors">Download</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">BlueChat Web</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Brand Assets</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500">
+                &copy; 2026 BlueChat Inc. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Accordion Functionality
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.fa-chevron-down');
+            
+            // Toggle current
+            if (content.classList.contains('hidden')) {
+                // Close others (optional - comment out if you want multiple open)
+                document.querySelectorAll('.faq-item div:not(.hidden)').forEach(el => {
+                    if (el !== content) {
+                        el.classList.add('hidden');
+                        el.previousElementSibling.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+                    }
+                });
+
+                content.classList.remove('hidden');
+                content.classList.add('fade-in');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Search Functionality
+        function filterFAQ() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+            const categories = document.querySelectorAll('.faq-category');
+            let hasResults = false;
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const keywords = item.getAttribute('data-keywords') || '';
+                
+                if (text.includes(filter) || keywords.includes(filter)) {
+                    item.style.display = "";
+                    hasResults = true;
+                    // Highlight logic could go here
+                } else {
+                    item.style.display = "none";
+                }
+            });
+
+            // Hide empty categories
+            categories.forEach(cat => {
+                const visibleItems = cat.querySelectorAll('.faq-item[style=""]'); // Select items without display:none
+                // Note: The selector logic above is simplified; empty string style means visible by default
+                
+                let catHasVisible = false;
+                cat.querySelectorAll('.faq-item').forEach(item => {
+                    if (item.style.display !== 'none') catHasVisible = true;
+                });
+
+                if (catHasVisible) {
+                    cat.querySelector('.text-sm').style.display = "";
+                } else {
+                    cat.querySelector('.text-sm').style.display = "none";
+                }
+            });
+
+            // Show/Hide "No Results"
+            document.getElementById('noResults').classList.toggle('hidden', hasResults);
+        }
+    </script>
+</body>
+</html>
